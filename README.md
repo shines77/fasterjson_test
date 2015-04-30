@@ -4,6 +4,23 @@ fasterjson_test
 
 A test for RapidJson(C++) and fasterjson(C).
 
+fasterjson(C)
+==============
+
+http://git.oschina.net/calvinwilliams/fasterjson
+
+RapidJson(C++)
+==============
+
+https://github.com/miloyip/rapidjson
+
+fasterjson_test
+================
+
+https://github.com/shines77/fasterjson_test
+
+http://git.oschina.net/shines77/fasterjson_test
+
 Test Result:
 =============
 
