@@ -2,7 +2,7 @@
 fasterjson_test
 ================
 
-A test for RapidJson(C++) and fasterjson(C).
+A test for fasterjson(C) and RapidJson(C++).
 
 ### fasterjson(C) ###
 
