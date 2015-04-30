@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="projects/fasterjson_test/CodeBlocks/fasterjson_test.cbp" />
+		<Project filename="projects/fasterjson_press/CodeBlocks/fasterjson_press.cbp" />
+		<Project filename="projects/rapidjson_test/CodeBlocks/rapidjson_test.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>

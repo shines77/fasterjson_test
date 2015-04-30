@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="rapidjson_test" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../bin/gcc/Debug/rapidjson_test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../../../obj/gcc/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../bin/gcc/Release/rapidjson_test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../../../obj/gcc/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add option="-I../../../src" />
+			<Add option="-msse" />
+			<Add option="-msse2" />
+		</Compiler>
+		<Unit filename="../../../src/jimic/jmc_assert.h" />
+		<Unit filename="../../../src/jimic/jmc_time.h" />
+		<Unit filename="../../../src/rapidjson/allocators.h" />
+		<Unit filename="../../../src/rapidjson/document.h" />
+		<Unit filename="../../../src/rapidjson/encodedstream.h" />
+		<Unit filename="../../../src/rapidjson/encodings.h" />
+		<Unit filename="../../../src/rapidjson/error/en.h" />
+		<Unit filename="../../../src/rapidjson/error/error.h" />
+		<Unit filename="../../../src/rapidjson/filereadstream.h" />
+		<Unit filename="../../../src/rapidjson/filestream.h" />
+		<Unit filename="../../../src/rapidjson/filewritestream.h" />
+		<Unit filename="../../../src/rapidjson/internal/biginteger.h" />
+		<Unit filename="../../../src/rapidjson/internal/diyfp.h" />
+		<Unit filename="../../../src/rapidjson/internal/dtoa.h" />
+		<Unit filename="../../../src/rapidjson/internal/ieee754.h" />
+		<Unit filename="../../../src/rapidjson/internal/itoa.h" />
+		<Unit filename="../../../src/rapidjson/internal/meta.h" />
+		<Unit filename="../../../src/rapidjson/internal/pow10.h" />
+		<Unit filename="../../../src/rapidjson/internal/stack.h" />
+		<Unit filename="../../../src/rapidjson/internal/strfunc.h" />
+		<Unit filename="../../../src/rapidjson/internal/strtod.h" />
+		<Unit filename="../../../src/rapidjson/memorybuffer.h" />
+		<Unit filename="../../../src/rapidjson/memorystream.h" />
+		<Unit filename="../../../src/rapidjson/msinttypes/inttypes.h" />
+		<Unit filename="../../../src/rapidjson/msinttypes/stdint.h" />
+		<Unit filename="../../../src/rapidjson/prettywriter.h" />
+		<Unit filename="../../../src/rapidjson/rapidjson.h" />
+		<Unit filename="../../../src/rapidjson/reader.h" />
+		<Unit filename="../../../src/rapidjson/stringbuffer.h" />
+		<Unit filename="../../../src/rapidjson/writer.h" />
+		<Unit filename="../../../test/rapidjson_test.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
