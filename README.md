@@ -15,7 +15,7 @@ https://github.com/miloyip/rapidjson
 Test Result
 =============
 
-(Ubuntu 14.04 LTS, Intel 8200 / 2.4GHz / 4 Core / 4GB RAM)
+(Ubuntu 14.04 LTS, Intel Q8200 / 2.4GHz / 4 Core / 4GB RAM)
 
     guozi@77Studio:~/test time -p ./fasterjson_press ../../data/test_big.json 10000
 
