@@ -12,7 +12,7 @@ http://git.oschina.net/calvinwilliams/fasterjson
 
 https://github.com/miloyip/rapidjson
 
-Test Result:
+Test Result
 =============
 
 (Ubuntu 14.04 LTS, Intel 8200 / 2.4GHz / 4 Core / 4GB RAM)
@@ -59,7 +59,7 @@ Like this:
     guozi@77Studio:~/test make
 
 Blog
--------
+=====
 
 [http://www.cnblogs.com/shines77/](http://www.cnblogs.com/shines77/)
 
