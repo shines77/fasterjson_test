@@ -1,25 +1,16 @@
 
 fasterjson_test
-===============
+================
 
 A test for RapidJson(C++) and fasterjson(C).
 
-fasterjson(C)
-==============
+### fasterjson(C) ###
 
 http://git.oschina.net/calvinwilliams/fasterjson
 
-RapidJson(C++)
-==============
+### RapidJson(C++) ###
 
 https://github.com/miloyip/rapidjson
-
-fasterjson_test
-================
-
-https://github.com/shines77/fasterjson_test
-
-http://git.oschina.net/shines77/fasterjson_test
 
 Test Result:
 =============
@@ -68,6 +59,12 @@ Like this:
     guozi@77Studio:~/test make
 
 Blog
-=====
+-------
 
 [http://www.cnblogs.com/shines77/](http://www.cnblogs.com/shines77/)
+
+## fasterjson_test ##
+
+https://github.com/shines77/fasterjson_test
+
+http://git.oschina.net/shines77/fasterjson_test
