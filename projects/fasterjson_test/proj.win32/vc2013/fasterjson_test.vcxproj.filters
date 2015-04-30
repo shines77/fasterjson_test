@@ -13,27 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="src\jimic">
+    <Filter Include="include\jimic">
       <UniqueIdentifier>{f20044cf-f2d5-4993-99ce-a98ce8c28f7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\fasterjson">
+      <UniqueIdentifier>{50e46aef-c0f5-402f-8585-deb8d4b0388e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\src\fasterjson.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\test\test_fasterjson.c">
-      <Filter>src</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\src\fasterjson.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\src\jimic\jmc_assert.h">
-      <Filter>src\jimic</Filter>
+      <Filter>include\jimic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\jimic\jmc_time.h">
-      <Filter>src\jimic</Filter>
+      <Filter>include\jimic</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\src\fasterjson.h">
+      <Filter>include\fasterjson</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\src\fasterjson.c">
+      <Filter>include\fasterjson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\fasterjson_test\test_fasterjson.c">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

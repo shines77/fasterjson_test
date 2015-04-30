@@ -65,7 +65,7 @@
 		<Unit filename="../../../src/rapidjson/reader.h" />
 		<Unit filename="../../../src/rapidjson/stringbuffer.h" />
 		<Unit filename="../../../src/rapidjson/writer.h" />
-		<Unit filename="../../../test/rapidjson_test.cpp" />
+		<Unit filename="../../../test/rapidjson_test/rapidjson_test.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

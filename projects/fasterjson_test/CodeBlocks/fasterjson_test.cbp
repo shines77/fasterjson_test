@@ -41,7 +41,7 @@
 		<Unit filename="../../../src/fasterjson.h" />
 		<Unit filename="../../../src/jimic/jmc_assert.h" />
 		<Unit filename="../../../src/jimic/jmc_time.h" />
-		<Unit filename="../../../test/test_fasterjson.c">
+		<Unit filename="../../../test/fasterjson_test/test_fasterjson.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

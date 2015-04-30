@@ -152,7 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\src\fasterjson.c" />
-    <ClCompile Include="..\..\..\..\test\test_fasterjson.c" />
+    <ClCompile Include="..\..\..\..\test\fasterjson_test\test_fasterjson.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\fasterjson.h" />

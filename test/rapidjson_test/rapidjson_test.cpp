@@ -187,7 +187,7 @@ int main(int argc, char *argv[])
         }
     }
     else {
-        printf("USAGE : press_fastjson json_pathfilename press_count\n");
+        printf("USAGE : rapidjson_test json_pathfilename press_count\n");
         exit(7);
     }
 

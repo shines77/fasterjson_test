@@ -26,6 +26,7 @@
 
 # Ignore project build libraries
 /lib/
+*.lib
 
 # Ignore Executables
 *.exe
@@ -74,6 +75,7 @@ Icon?
 *.manifest
 *.intermediate.manifest
 *.bak
+*.exp
 
 # *.vcxproj.user
 # *_i.c
@@ -121,18 +123,15 @@ UpgradeLog.htm
 *.zip
 *.rar
 
-# Ignore makefiles
-Makefile
+# Ignore some makefiles
 Makefile.copy
 Makefile.new
-Makefile.fasterjson_press
 
 # Ignore CMake cache or temp files(folders)
 /CMakeFiles
 *CMakeCache.txt
 
 # Ignore tmp and obj folders
-[Bb]in
 [Oo]bj/
 /[Oo]bj/
 /[Gg]en/
@@ -142,7 +141,8 @@ Makefile.fasterjson_press
 /[Bb]uild/*/
 
 # Ignore bin and build folders
-/[Bb]in/
+#[Bb]in
+#/[Bb]in/
 /[Dd]ebug/
 /[Rr]elease/
 /x86-[Dd]ebug/
@@ -151,7 +151,6 @@ Makefile.fasterjson_press
 /x64-[Rr]elease/
 !/deps/
 
-[Bb]in
 [Dd]ebug*/
 [Rr]elease*/
 _ReSharper*/
