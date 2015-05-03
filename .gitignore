@@ -90,6 +90,9 @@ Icon?
 # Ignore Sublime Text 2 dump files
 *.dump
 
+# Ignore Eclipse or VSCode settings files
+.settings
+
 # Ignore stackdump files on Linux
 *.stackdump
 

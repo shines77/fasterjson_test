@@ -13,7 +13,7 @@ http://git.oschina.net/calvinwilliams/fasterjson
 https://github.com/miloyip/rapidjson
 
 Test Result
-=============
+============
 
 (Ubuntu 14.04 LTS, Intel Q8200 / 2.4GHz / 4 Core / 4GB RAM)
 
@@ -47,12 +47,12 @@ Test Result
 
     guozi@77Studio:~/test 
 
-Complie
+Compile
 ========
 
 You can complie it in Visual Studio 2013 and CodeBlocks(Windows or Linux),
 
-or use "make" command to complie it in console (Linux or Windows cygwin or MinGW).
+or use "make" command to compile it in console (Linux, cygwin or MinGW on Windows).
 
 Like this:
 
