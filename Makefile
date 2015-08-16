@@ -153,15 +153,17 @@ CXX_RJTEST_PIC_OBJS := $(CXX_RAPIDJSON_TEST_SRCS:$(srcroot)%.cpp=$(objroot)rapid
 CXX_RJTEST_JET_OBJS := $(CXX_RAPIDJSON_TEST_SRCS:$(srcroot)%.cpp=$(objroot)rapidjson_test/%.jet.$(O))
 
 .PHONY: all
-.PHONY: clean
-.PHONY: help
 .PHONY: fasterjson_press
 .PHONY: fasterjson_test
 .PHONY: rapidjson_test
+.PHONY: help
+.PHONY: clean
 
 # Default target.
+.PHONY: all
 all: fasterjson_press fasterjson_test rapidjson_test
 
+.PHONY: fasterjson_press
 fasterjson_press: $(binroot)$(FASTERJSON_PRESS)$(EXE)
 
 #
@@ -231,6 +233,7 @@ endif
 
 .PHONY : fasterjson_press
 
+.PHONY: fasterjson_test
 fasterjson_test: $(binroot)$(FASTERJSON_TEST)$(EXE)
 
 #
@@ -276,6 +279,7 @@ $(binroot)$(FASTERJSON_TEST)$(EXE) : $(if $(PIC_CCFLAGS),$(C_TEST_PIC_OBJS),$(C_
 
 .PHONY : fasterjson_test
 
+.PHONY: rapidjson_test
 rapidjson_test: $(binroot)$(RAPIDJSON_TEST)$(EXE)
 
 #
