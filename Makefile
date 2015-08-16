@@ -22,7 +22,7 @@ G_INCLUDE_DIR := -I$(srcroot)src -I$(srcroot)src/jimic -I$(srcroot)src/rapidjson
 G_MMX_ENABLED := -msse -msse2 -msse3 -D__MMX__ -D__SSE__ -D__SSE2__ -D__SSE3__
 
 # Build parameters. -m32 for x86 (32 bit), -m64 for x64 (64 bit)
-CCFLAGS  := -Wall -w -pipe -g3 -fpermissive -fvisibility=hidden -O3 -funroll-loops $(G_INCLUDE_DIR) -D_GNU_SOURC
+CCFLAGS  := -Wall -w -pipe -g3 -fpermissive -fvisibility=hidden -O3 -funroll-loops $(G_INCLUDE_DIR) -D_GNU_SOURC $(G_MMX_ENABLED)
 CXXFLAGS := -std=c++0x -Wall -w -pipe -g3 -fpermissive -fvisibility=hidden -O3 -funroll-loops $(G_INCLUDE_DIR) -D_REENTRANT -D_GNU_SOURC $(G_MMX_ENABLED)
 LDFLAGS  :=
 EXTRA_LDFLAGS :=
@@ -48,7 +48,7 @@ RPATH = $(if $(1),$(call _RPATH,$(1)))
 ##########################################################################
 
 ifeq ($(OS), Windows_NT)
-    LIBS += -lwinmm
+    # LIBS += -lwinmm
     objroot := obj/gcc/mingw/
     binroot := bin/gcc/mingw/
 else
@@ -56,11 +56,11 @@ else
 
     ifeq ($(UNAME_S), Linux)
         LIBS += -lrt
-        CCCFLAGS    += -D LINUX
+        CCCFLAGS += -D LINUX
         CXXFLAGS += -D LINUX
     endif
     ifeq ($(UNAME_S), Darwin)
-        CCCFLAGS    += -D OSX
+        CCCFLAGS += -D OSX
         CXXFLAGS += -D OSX
         objroot := obj/gcc/darwin/
         binroot := bin/gcc/darwin/
@@ -75,12 +75,12 @@ else
     endif
     # i[3456789]86|x86|i86pc)
     ifneq ($(filter %86, $(UNAME_P)),)
-        CCCFLAGS    += -m32 -D IA32
+        CCCFLAGS += -m32 -D IA32
         CXXFLAGS += -m32 -D IA32
     endif
     # arm*)
     ifneq ($(filter arm%, $(UNAME_P)),)
-        CCCFLAGS    += -D ARM
+        CCCFLAGS += -D ARM
         CXXFLAGS += -D ARM
         objroot := obj/gcc/arm/
         binroot := bin/gcc/arm/
@@ -124,7 +124,7 @@ C_TEST_SRCS := $(srcroot)test/fasterjson_test/test_fasterjson.c $(srcroot)src/fa
 CXX_RAPIDJSON_TEST_SRCS := $(srcroot)test/rapidjson_test/rapidjson_test.cpp
 
 ifeq ($(IMPORTLIB),$(SO))
-STATIC_LIBS := $(objroot)lib/$(LIBFASTERJSON).$(A)
+    STATIC_LIBS := $(objroot)lib/$(LIBFASTERJSON).$(A)
 endif
 ifdef PIC_CCFLAGS
     STATIC_LIBS += $(objroot)lib/$(LIBFASTERJSON)_pic.$(A)
@@ -168,13 +168,13 @@ fasterjson_press: $(binroot)$(FASTERJSON_PRESS)$(EXE)
 # Include generated dependency files.
 #
 ifdef CC_MM
-	-include $(C_OBJS:%.$(O)=%.d)
-	-include $(C_PIC_OBJS:%.$(O)=%.d)
-	-include $(C_JET_OBJS:%.$(O)=%.d)
+    -include $(C_OBJS:%.$(O)=%.d)
+    -include $(C_PIC_OBJS:%.$(O)=%.d)
+    -include $(C_JET_OBJS:%.$(O)=%.d)
 
-	-include $(CXX_OBJS:%.$(O)=%.d)
-	-include $(CXX_PIC_OBJS:%.$(O)=%.d)
-	-include $(CXX_JET_OBJS:%.$(O)=%.d)
+    -include $(CXX_OBJS:%.$(O)=%.d)
+    -include $(CXX_PIC_OBJS:%.$(O)=%.d)
+    -include $(CXX_JET_OBJS:%.$(O)=%.d)
 endif
 
 $(C_OBJS): $(objroot)fasterjson_press/%.$(O): $(srcroot)%.c
@@ -192,41 +192,41 @@ $(CXX_JET_OBJS): $(objroot)fasterjson_press/test/%.jet.$(O): $(srcroot)test/%.cp
 $(CXX_JET_OBJS): CXXFLAGS += -DFASTERJSON_JET
 
 ifneq ($(IMPORTLIB),$(SO))
-	$(C_OBJS): CCFLAGS += -DDLLEXPORT
-	$(CXX_OBJS): CXXFLAGS += -DDLLEXPORT
+    $(C_OBJS): CCFLAGS += -DDLLEXPORT
+    $(CXX_OBJS): CXXFLAGS += -DDLLEXPORT
 endif
 
 ifndef CC_MM
-	# Dependencies.
-	HEADER_DIRS	= $(srcroot)src	$(srcroot)test $(srcroot)src/jimic $(srcroot)src/rapidjson
-	HEADERS	= $(wildcard $(foreach dir,$(HEADER_DIRS),$(dir)/*.h))
-	$(C_OBJS) $(C_PIC_OBJS)	$(C_JET_OBJS) $(CXX_OBJS) $(CXX_PIC_OBJS) $(CXX_JET_OBJS) :	$(HEADERS)
+    # Dependencies.
+    HEADER_DIRS = $(srcroot)src $(srcroot)test $(srcroot)src/jimic $(srcroot)src/rapidjson
+    HEADERS = $(wildcard $(foreach dir,$(HEADER_DIRS),$(dir)/*.h))
+    $(C_OBJS) $(C_PIC_OBJS) $(C_JET_OBJS) $(CXX_OBJS) $(CXX_PIC_OBJS) $(CXX_JET_OBJS) : $(HEADERS)
 endif
 
-$(C_OBJS) $(C_PIC_OBJS)	$(C_JET_OBJS) :	%.$(O):
-	@mkdir -p $(@D)
-	$(CC) $(CCFLAGS) -c	$(CTARGET) $<
+$(C_OBJS) $(C_PIC_OBJS) $(C_JET_OBJS) : %.$(O):
+    @mkdir -p $(@D)
+    $(CC) $(CCFLAGS) -c $(CTARGET) $<
 
 ifneq ($(CXX_OBJS),)
-	$(CXX_OBJS)	$(CXX_PIC_OBJS)	$(CXX_JET_OBJS)	: %.$(O):
-		@mkdir -p $(@D)
-		$(CXX) $(CXXFLAGS) -c $(CTARGET) $<
+    $(CXX_OBJS) $(CXX_PIC_OBJS) $(CXX_JET_OBJS) : %.$(O):
+        @mkdir -p $(@D)
+        $(CXX) $(CXXFLAGS) -c $(CTARGET) $<
 endif
 
 ifneq ($(SOREV),$(SO))
-	%.$(SO)	: %.$(SOREV)
-		@mkdir -p $(@D)
-		ln -sf $(<F) $@
+    %.$(SO) : %.$(SOREV)
+        @mkdir -p $(@D)
+        ln -sf $(<F) $@
 endif
 
 ifneq ($(CXX_SRCS),)
-	$(binroot)$(FASTERJSON_PRESS)$(EXE)	: $(if $(PIC_CCFLAGS),$(CXX_PIC_OBJS),$(CXX_OBJS)) $(if	$(PIC_CCFLAGS),$(C_PIC_OBJS),$(C_OBJS))
-		@mkdir -p $(@D)
-		$(CXX) $(LDTARGET) $(filter	%.$(O),$^) $(call RPATH,$(objroot)lib) $(LDFLAGS) $(filter-out -lm,$(LIBS))	-lm	$(EXTRA_LDFLAGS)
+    $(binroot)$(FASTERJSON_PRESS)$(EXE) : $(if $(PIC_CCFLAGS),$(CXX_PIC_OBJS),$(CXX_OBJS)) $(if $(PIC_CCFLAGS),$(C_PIC_OBJS),$(C_OBJS))
+        @mkdir -p $(@D)
+        $(CXX) $(LDTARGET) $(filter %.$(O),$^) $(call RPATH,$(objroot)lib) $(LDFLAGS) $(filter-out -lm,$(LIBS)) -lm $(EXTRA_LDFLAGS)
 else
-	$(binroot)$(FASTERJSON_PRESS)$(EXE)	: $(if $(PIC_CCFLAGS),$(C_PIC_OBJS),$(C_OBJS))
-		@mkdir -p $(@D)
-		$(CC) $(LDTARGET) $(filter %.$(O),$^) $(call RPATH,$(objroot)lib) $(LDFLAGS) $(filter-out -lm,$(LIBS)) -lm $(EXTRA_LDFLAGS)
+    $(binroot)$(FASTERJSON_PRESS)$(EXE) : $(if $(PIC_CCFLAGS),$(C_PIC_OBJS),$(C_OBJS))
+        @mkdir -p $(@D)
+        $(CC) $(LDTARGET) $(filter %.$(O),$^) $(call RPATH,$(objroot)lib) $(LDFLAGS) $(filter-out -lm,$(LIBS)) -lm $(EXTRA_LDFLAGS)
 endif
 
 .PHONY : fasterjson_press
@@ -234,90 +234,90 @@ endif
 fasterjson_test: $(binroot)$(FASTERJSON_TEST)$(EXE)
 
 #
-# Include generated	dependency files.
+# Include generated dependency files.
 #
 ifdef CC_MM
-	-include $(C_TEST_OBJS:%.$(O)=%.d)
-	-include $(C_TEST_PIC_OBJS:%.$(O)=%.d)
-	-include $(C_TEST_JET_OBJS:%.$(O)=%.d)
+    -include $(C_TEST_OBJS:%.$(O)=%.d)
+    -include $(C_TEST_PIC_OBJS:%.$(O)=%.d)
+    -include $(C_TEST_JET_OBJS:%.$(O)=%.d)
 endif
 
 ifneq ($(IMPORTLIB),$(SO))
-	$(C_TEST_OBJS):	CCFLAGS	+= -DDLLEXPORT
+    $(C_TEST_OBJS): CCFLAGS += -DDLLEXPORT
 endif
 
-$(C_TEST_OBJS):	$(objroot)fasterjson_test/%.$(O): $(srcroot)%.c
-$(C_TEST_OBJS):	CCFLAGS	+= -I$(srcroot)test	-I$(srcroot)src
-$(C_TEST_PIC_OBJS):	$(objroot)fasterjson_test/%.pic.$(O): $(srcroot)%.c
-$(C_TEST_PIC_OBJS):	CCFLAGS	+= $(PIC_CCFLAGS)
-$(C_TEST_JET_OBJS):	$(objroot)fasterjson_test/%.jet.$(O): $(srcroot)%.c
-$(C_TEST_JET_OBJS):	CCFLAGS	+= -DFASTERJSON_JET
+$(C_TEST_OBJS): $(objroot)fasterjson_test/%.$(O): $(srcroot)%.c
+$(C_TEST_OBJS): CCFLAGS += -I$(srcroot)test -I$(srcroot)src
+$(C_TEST_PIC_OBJS): $(objroot)fasterjson_test/%.pic.$(O): $(srcroot)%.c
+$(C_TEST_PIC_OBJS): CCFLAGS += $(PIC_CCFLAGS)
+$(C_TEST_JET_OBJS): $(objroot)fasterjson_test/%.jet.$(O): $(srcroot)%.c
+$(C_TEST_JET_OBJS): CCFLAGS += -DFASTERJSON_JET
 
 ifndef CC_MM
-	# Dependencies.
-	TEST_HEADER_DIRS = $(srcroot)src $(srcroot)test	$(srcroot)src/jimic	$(srcroot)src/rapidjson
-	TEST_HEADERS = $(wildcard $(foreach	dir,$(TEST_HEADER_DIRS),$(dir)/*.h))
-	$(C_TEST_OBJS) $(C_TEST_PIC_OBJS) $(C_TEST_JET_OBJS) : $(TEST_HEADERS)
+    # Dependencies.
+    TEST_HEADER_DIRS = $(srcroot)src $(srcroot)test $(srcroot)src/jimic $(srcroot)src/rapidjson
+    TEST_HEADERS = $(wildcard $(foreach dir,$(TEST_HEADER_DIRS),$(dir)/*.h))
+    $(C_TEST_OBJS) $(C_TEST_PIC_OBJS) $(C_TEST_JET_OBJS) : $(TEST_HEADERS)
 endif
 
 $(C_TEST_OBJS) $(C_TEST_PIC_OBJS) $(C_TEST_JET_OBJS) : %.$(O):
-	@mkdir -p $(@D)
-	$(CC) $(CCFLAGS) -c	$(CTARGET) $<
+    @mkdir -p $(@D)
+    $(CC) $(CCFLAGS) -c $(CTARGET) $<
 
 ifneq ($(SOREV),$(SO))
-	%.$(SO)	: %.$(SOREV)
-		@mkdir -p $(@D)
-		ln -sf $(<F) $@
+    %.$(SO) : %.$(SOREV)
+        @mkdir -p $(@D)
+        ln -sf $(<F) $@
 endif
 
 $(binroot)$(FASTERJSON_TEST)$(EXE) : $(if $(PIC_CCFLAGS),$(C_TEST_PIC_OBJS),$(C_TEST_OBJS))
-	@mkdir -p $(@D)
-	$(CC) $(LDTARGET) $(filter %.$(O),$^) $(call RPATH,$(objroot)lib) $(LDFLAGS) $(filter-out -lm,$(LIBS)) -lm $(EXTRA_LDFLAGS)
+    @mkdir -p $(@D)
+    $(CC) $(LDTARGET) $(filter %.$(O),$^) $(call RPATH,$(objroot)lib) $(LDFLAGS) $(filter-out -lm,$(LIBS)) -lm $(EXTRA_LDFLAGS)
 
 .PHONY : fasterjson_test
 
-rapidjson_test:	$(binroot)$(RAPIDJSON_TEST)$(EXE)
+rapidjson_test: $(binroot)$(RAPIDJSON_TEST)$(EXE)
 
 #
-# Include generated	dependency files.
+# Include generated dependency files.
 #
 ifdef CC_MM
-	-include $(CXX_RJTEST_OBJS:%.$(O)=%.d)
-	-include $(CXX_RJTEST_PIC_OBJS:%.$(O)=%.d)
-	-include $(CXX_RJTEST_JET_OBJS:%.$(O)=%.d)
+    -include $(CXX_RJTEST_OBJS:%.$(O)=%.d)
+    -include $(CXX_RJTEST_PIC_OBJS:%.$(O)=%.d)
+    -include $(CXX_RJTEST_JET_OBJS:%.$(O)=%.d)
 endif
 
 ifneq ($(IMPORTLIB),$(SO))
-	$(CXX_RJTEST_OBJS):	CXXFLAGS +=	-DDLLEXPORT
+    $(CXX_RJTEST_OBJS): CXXFLAGS += -DDLLEXPORT
 endif
 
-$(CXX_RJTEST_OBJS):	$(objroot)rapidjson_test/%.$(O): $(srcroot)%.cpp
-$(CXX_RJTEST_OBJS):	CXXFLAGS +=	-I$(srcroot)test -I$(srcroot)src -I$(srcroot)src/rapidjson
-$(CXX_RJTEST_PIC_OBJS):	$(objroot)rapidjson_test/%.pic.$(O): $(srcroot)%.cpp
-$(CXX_RJTEST_PIC_OBJS):	CXXFLAGS +=	$(PIC_CCFLAGS)
-$(CXX_RJTEST_JET_OBJS):	$(objroot)rapidjson_test/%.jet.$(O): $(srcroot)%.cpp
-$(CXX_RJTEST_JET_OBJS):	CXXFLAGS +=	-DRAPIDJSON_JET
+$(CXX_RJTEST_OBJS): $(objroot)rapidjson_test/%.$(O): $(srcroot)%.cpp
+$(CXX_RJTEST_OBJS): CXXFLAGS += -I$(srcroot)test -I$(srcroot)src -I$(srcroot)src/rapidjson
+$(CXX_RJTEST_PIC_OBJS): $(objroot)rapidjson_test/%.pic.$(O): $(srcroot)%.cpp
+$(CXX_RJTEST_PIC_OBJS): CXXFLAGS += $(PIC_CCFLAGS)
+$(CXX_RJTEST_JET_OBJS): $(objroot)rapidjson_test/%.jet.$(O): $(srcroot)%.cpp
+$(CXX_RJTEST_JET_OBJS): CXXFLAGS += -DRAPIDJSON_JET
 
 ifndef CC_MM
-	# Dependencies.
-	RJTEST_HEADER_DIRS = $(srcroot)src $(srcroot)test $(srcroot)src/jimic $(srcroot)src/rapidjson
-	RJTEST_HEADERS = $(wildcard	$(foreach dir,$(RJTEST_HEADER_DIRS),$(dir)/*.h))
-	$(CXX_RJTEST_OBJS) $(CXX_RJTEST_PIC_OBJS) $(CXX_RJTEST_JET_OBJS) : $(RJTEST_HEADERS)
+    # Dependencies.
+    RJTEST_HEADER_DIRS = $(srcroot)src $(srcroot)test $(srcroot)src/jimic $(srcroot)src/rapidjson
+    RJTEST_HEADERS = $(wildcard $(foreach dir,$(RJTEST_HEADER_DIRS),$(dir)/*.h))
+    $(CXX_RJTEST_OBJS) $(CXX_RJTEST_PIC_OBJS) $(CXX_RJTEST_JET_OBJS) : $(RJTEST_HEADERS)
 endif
 
 $(CXX_RJTEST_OBJS) $(CXX_RJTEST_PIC_OBJS) $(CXX_RJTEST_JET_OBJS) : %.$(O):
-	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) -c $(CTARGET) $<
+    @mkdir -p $(@D)
+    $(CXX) $(CXXFLAGS) -c $(CTARGET) $<
 
 ifneq ($(SOREV),$(SO))
-%.$(SO)	: %.$(SOREV)
-	@mkdir -p $(@D)
-	ln -sf $(<F) $@
+%.$(SO) : %.$(SOREV)
+    @mkdir -p $(@D)
+    ln -sf $(<F) $@
 endif
 
-$(binroot)$(RAPIDJSON_TEST)$(EXE) :	$(if $(PIC_CCFLAGS),$(CXX_RJTEST_PIC_OBJS),$(CXX_RJTEST_OBJS))
-	@mkdir -p $(@D)
-	$(CXX) $(LDTARGET) $(filter	%.$(O),$^) $(call RPATH,$(objroot)lib) $(LDFLAGS) $(filter-out -lm,$(LIBS))	-lm	$(EXTRA_LDFLAGS)
+$(binroot)$(RAPIDJSON_TEST)$(EXE) : $(if $(PIC_CCFLAGS),$(CXX_RJTEST_PIC_OBJS),$(CXX_RJTEST_OBJS))
+    @mkdir -p $(@D)
+    $(CXX) $(LDTARGET) $(filter %.$(O),$^) $(call RPATH,$(objroot)lib) $(LDFLAGS) $(filter-out -lm,$(LIBS)) -lm $(EXTRA_LDFLAGS)
 
 .PHONY : rapidjson_test
 
