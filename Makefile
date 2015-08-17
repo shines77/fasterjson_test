@@ -339,7 +339,7 @@ help:
 	@echo "... fasterjson_press"
 	@echo "... fasterjson_test"
 	@echo "... rapidjson_test"
-    @echo "... clean"
+	@echo "... clean"
 	@echo "... help"
 .PHONY : help
 
