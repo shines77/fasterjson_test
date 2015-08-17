@@ -18,12 +18,6 @@ srcroot :=
 objroot := obj/gcc/linux/
 binroot := bin/gcc/linux/
 
-G_INCLUDE_DIR := -I$(srcroot)src -I$(srcroot)src/jimic -I$(srcroot)src/rapidjson -I$(srcroot)test
-G_MMX_ENABLED := -msse -msse2 -msse3 -D__MMX__ -D__SSE__ -D__SSE2__ -D__SSE3__
-
-# Build parameters. -m32 for x86 (32 bit), -m64 for x64 (64 bit)
-CCFLAGS  := -Wall -w -pipe -g3 -fpermissive -fvisibility=hidden -O3 -funroll-loops $(G_INCLUDE_DIR) -D_GNU_SOURC $(G_MMX_ENABLED)
-CXXFLAGS := -std=c++0x -Wall -w -pipe -g3 -fpermissive -fvisibility=hidden -O3 -funroll-loops $(G_INCLUDE_DIR) -D_REENTRANT -D_GNU_SOURC $(G_MMX_ENABLED)
 LDFLAGS  :=
 EXTRA_LDFLAGS :=
 LIBS :=
@@ -86,6 +80,13 @@ else
         binroot := bin/gcc/arm/
     endif
 endif
+
+G_INCLUDE_DIR := -I$(srcroot)src -I$(srcroot)src/jimic -I$(srcroot)src/rapidjson -I$(srcroot)test
+G_MMX_ENABLED := -msse -msse2 -msse3 -D__MMX__ -D__SSE__ -D__SSE2__ -D__SSE3__
+
+# Build parameters. -m32 for x86 (32 bit), -m64 for x64 (64 bit)
+CCFLAGS  := -Wall -w -pipe -g3 -fpermissive -fvisibility=hidden -O3 -funroll-loops $(G_INCLUDE_DIR) -D_GNU_SOURC $(G_MMX_ENABLED)
+CXXFLAGS := -std=c++0x -Wall -w -pipe -g3 -fpermissive -fvisibility=hidden -O3 -funroll-loops $(G_INCLUDE_DIR) -D_REENTRANT -D_GNU_SOURC $(G_MMX_ENABLED)
 
 header_files := src/fasterjson.h src/jimic/jmc_time.h src/jimic/jmc_assert.h
 
