@@ -114,9 +114,9 @@ RAPIDJSON_TEST   := rapidjson_test
 LIBFASTERJSON := $(LIBPREFIX)fasterjson(install_suffix)
 
 # Lists of files.
-BINS := $(srcroot)bin/pprof $(objroot)bin/gcc/linux/fasterjson_press.sh $(objroot)bin/gcc/linux/fasterjson_test.sh $(objroot)bin/gcc/linux/rapidjson_test.sh
+BINS := $(srcroot)bin/pprof $(binroot)fasterjson_press.sh $(binroot)fasterjson_test.sh $(binroot)rapidjson_test.sh
 
-C_HDRS := $(objroot)src/fasterjson.h $(objroot)src/jimic/jmc_time.h $(objroot)src/jimic/jmc_assert.h
+C_HDRS := $(srcroot)src/fasterjson.h $(srcroot)src/jimic/jmc_time.h $(srcroot)src/jimic/jmc_assert.h
 
 C_SRCS := $(srcroot)test/fasterjson_press/press_fasterjson.c $(srcroot)src/fasterjson.c
 # CXX_SRCS := $(srcroot)test/dummy.cpp
@@ -243,9 +243,9 @@ fasterjson_test: $(binroot)$(FASTERJSON_TEST)$(EXE)
 # Include generated dependency files.
 #
 ifdef CC_MM
--include $(C_TEST_OBJS:%.$(O)=%.d)
--include $(C_TEST_PIC_OBJS:%.$(O)=%.d)
--include $(C_TEST_JET_OBJS:%.$(O)=%.d)
+    -include $(C_TEST_OBJS:%.$(O)=%.d)
+    -include $(C_TEST_PIC_OBJS:%.$(O)=%.d)
+    -include $(C_TEST_JET_OBJS:%.$(O)=%.d)
 endif
 
 ifneq ($(IMPORTLIB),$(SO))
@@ -289,9 +289,9 @@ rapidjson_test: $(binroot)$(RAPIDJSON_TEST)$(EXE)
 # Include generated dependency files.
 #
 ifdef CC_MM
--include $(CXX_RJTEST_OBJS:%.$(O)=%.d)
--include $(CXX_RJTEST_PIC_OBJS:%.$(O)=%.d)
--include $(CXX_RJTEST_JET_OBJS:%.$(O)=%.d)
+    -include $(CXX_RJTEST_OBJS:%.$(O)=%.d)
+    -include $(CXX_RJTEST_PIC_OBJS:%.$(O)=%.d)
+    -include $(CXX_RJTEST_JET_OBJS:%.$(O)=%.d)
 endif
 
 ifneq ($(IMPORTLIB),$(SO))
@@ -336,10 +336,10 @@ $(binroot)$(RAPIDJSON_TEST)$(EXE) : $(if $(PIC_CFLAGS),$(CXX_RJTEST_PIC_OBJS),$(
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
-	@echo "... clean"
 	@echo "... fasterjson_press"
 	@echo "... fasterjson_test"
 	@echo "... rapidjson_test"
+    @echo "... clean"
 	@echo "... help"
 .PHONY : help
 
