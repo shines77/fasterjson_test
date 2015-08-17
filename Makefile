@@ -52,6 +52,8 @@ else
         LIBS += -lrt
         CCCFLAGS += -D LINUX
         CXXFLAGS += -D LINUX
+        objroot := obj/gcc/linux/
+        binroot := bin/gcc/linux/
     endif
     ifeq ($(UNAME_S), Darwin)
         CCCFLAGS += -D OSX
